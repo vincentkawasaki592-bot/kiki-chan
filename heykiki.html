@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Sweetest Strawberry 🍓🍫</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Pacifico&family=Quicksand:wght@300;500;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cocoa: #3d251e;
+            --lava: #d41430;
+            --strawberry: #ff85a1;
+            --cream: #fff9f0;
+            --glass: rgba(255, 255, 255, 0.92);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--cream);
+            font-family: 'Quicksand', sans-serif;
+            color: var(--cocoa);
+            overflow: hidden;
+            cursor: url('https://cur.cursors-4u.net/food/foo-6/foo537.cur'), auto;
+        }
+
+        /* --- Background Illustration --- */
+        .bg-illustration {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(255,249,240,0.4), rgba(255,249,240,0.4)), 
+                        url('https://images.unsplash.com/photo-1516589174184-c685eaa69a0a?q=80&w=1974&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: -1;
+            animation: breathe 12s infinite ease-in-out;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* --- Falling Items --- */
+        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
+        .falling { position: fixed; z-index: 1000; pointer-events: none; animation: fall linear forwards; }
+
+        /* --- Journey Sections --- */
+        section {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            padding: 45px;
+            border-radius: 50px;
+            border: 4px solid white;
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(61, 37, 30, 0.2);
+            position: relative;
+        }
+
+        h1 { font-family: 'Cherry Bomb One', cursive; color: var(--lava); font-size: 3rem; margin-bottom: 20px; }
+        h2 { font-family: 'Pacifico', cursive; color: var(--cocoa); font-size: 1.8rem; margin-bottom: 15px; }
+
+        /* --- Gourmet Button Styling --- */
+        .btn-container { display: flex; justify-content: center; gap: 20px; margin-top: 30px; flex-wrap: wrap; }
+        
+        .btn {
+            background: var(--lava);
+            color: white;
+            border: none;
+            padding: 16px 35px;
+            border-radius: 50px;
+            font-family: 'Cherry Bomb One', cursive;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 0 #8a1d2d;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 9px 0 #8a1d2d; background: #e61a38; }
+        .btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #8a1d2d; }
+
+        .btn-back { background: var(--cocoa); box-shadow: 0 6px 0 #1a100d; }
+        .btn-back:hover { background: #50332b; box-shadow: 0 9px 0 #1a100d; }
+        .btn-back:active { box-shadow: 0 2px 0 #1a100d; }
+
+        /* --- Personal Note --- */
+        .note-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--cocoa);
+            text-align: left;
+            line-height: 1.6;
+            padding: 20px;
+            max-height: 380px;
+            overflow-y: auto;
+            border-left: 5px solid var(--strawberry);
+            background: rgba(255, 133, 161, 0.05);
+            border-radius: 10px;
+        }
+
+        /* --- Luxury Gallery Grid --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 25px;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding: 20px;
+            background: rgba(61, 37, 30, 0.03);
+            border-radius: 30px;
+        }
+
+        .photo-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: 0.4s;
+            border: 5px solid white;
+        }
+
+        .photo-item:hover { transform: translateY(-8px) rotate(1deg); }
+        .photo-item img { width: 100%; height: 220px; object-fit: cover; }
+        .photo-note { 
+            padding: 12px; 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 1.1rem; 
+            background: var(--cream);
+            border-top: 1px solid #eee;
+        }
+
+        /* --- Puppy UI --- */
+        #puppy-wrapper { position: fixed; bottom: 20px; right: 20px; z-index: 3000; text-align: center; }
+        #puppy-img { width: 120px; cursor: pointer; transition: 0.3s; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1)); }
+        #puppy-bubble {
+            position: absolute; bottom: 130px; right: 0; width: 200px;
+            background: white; border: 2px solid var(--strawberry);
+            padding: 12px; border-radius: 20px; font-size: 0.9rem;
+            display: none; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            font-weight: 500;
+        }
+
+        /* --- Overlays --- */
+        #start-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--cocoa); z-index: 5000; display: flex;
+            flex-direction: column; align-items: center; justify-content: center;
+            color: white; text-align: center;
+        }
+
+        #no-btn { position: absolute; }
+        .hidden { display: none !important; }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-illustration"></div>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="https://www.chosic.com/wp-content/uploads/2021/04/Warm-Memories-Emotional-Inspiring-Piano.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Start Experience -->
+    <div id="start-screen">
+        <h1 style="color: white; font-size: 4rem;">come here My dipped in</br> the chocolate Strawberry🍓</h1>
+        <p style="margin: 20px; font-size: 1.5rem;">I've prepared a sweet journey through our story.</p>
+        <button class="btn" onclick="begin()">Enter Our World</button>
+    </div>
+
+    <!-- Puppy Mochi -->
+    <div id="puppy-wrapper" style="display: none;">
+        <div id="puppy-bubble">Woof! I'm Mochi! Click me for a secret! 🐾</div>
+        <img id="puppy-img" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHY5eW5xN3RrZ3R5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/vVzH2FxCoJLcBcE87I/giphy.gif" onclick="puppyTalk()">
+    </div>
+
+    <!-- SECTION 1: HOME -->
+    <section id="step-1" style="transform: translateX(0);">
+        <div class="card">
+            <h1>Our Sweetest Journey 🍫</h1>
+            <p style="font-size: 1.4rem; margin: 25px 0;">Every layer of this journey is made with love, just like a warm chocolava cake.(i remembered to make this website for you honey, so give me your sweater in return or else HANDS UPP!!!)</p>
+            <div class="btn-container">
+                <button class="btn" onclick="nav(2)">Start Journey →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: THE NOTE -->
+    <section id="step-2" style="transform: translateX(100%);">
+        <div class="card">
+            <h2>A Special Note 💌</h2>
+            <div class="note-text">
+                This is how i see you my stuti, my janu, <br><br>
+               over the top extrovert, chilly but sweet enough to put me on diabetes, pale skinned with a pinkish tone….a bit dumbo but when in love OH GOD what a beautiful flower she is….5’2” with a sweet temper ( I’m in love with that gosh),  a beautiful pair of glasses…an hardcore anti-boys girl…totally a tomboy ( Atleast until i met her), her hair with a scent of vanilla, eyes so pearly that would make a deer feel shy of, nose so little i would wanna pamper it with love, cheeks like cherry red in winters (there’s nothing better than that i swear), when smiles, the corners of her pink, soft lips lifts up like how my soul was lifted when i saw her again after years….her ear turns red whenever i came close, sensitive if tickled behind her ears, that is why i do it a lot….a clumsy little cat who would trip off if left alone for longer than 5 mins on the walkway….her hands….a little smaller than mine, making my body go so hot whenever she’s around, and if she touches my hand? its a total volcanic eruption in my heart…her forehead reaching directly till my lips (she’s the one for me). feels stricter than my own mother if ever mad at me or if im sick, but sweeter than the sweetest chocolava cake if in her baby mood. a kind soul, so adorable that playing with puppies and kitties alone makes her go from little sad kitty to the happiest soul ever. her little attitude that i always fall for, her spicy behaviour that makes me go wonder gosh, i want her to discipline me, i want her to make me go on the right path, gosh teacher. A girl so beautiful, not just by her looks, but by her soul that i fell for her in 4th standard. a girl so excited about things, gets joyful so fast, and goes depressed in a second as well. A girl so dreamy she makes me wanna go, REALLY? i really deserved this little sweetheart? a girl that makes me question, how was i happy before her? she the one who gave all the colours in my life. An honest, straightforward, but sometimes silly shy that put me on right track whenever i got lost, whenever i was all by myself, she came. She feels like a girl who would go to mood happy 7 to mood  ughh i hate this 99 in a second, and vice versa. A girl so adorable when vulnerable that she comes, says i miss you, and just falls asleep. but when she serious, she SERIOUS, no mercy at all, i gotta prove my innocence before my supreme court to even continue the thing, gosh thats thrilling as hell as shes the one i want god. Her dream? to make her parents immensely proud, she tries everything to do so, so deeply connected to her family that never wanna hurt them, wants to build a successful career but sometimes scared to initiate, but brave enough to step in and stand up for herself. A girl with a headache that troubles her in the night. a girl fighting off every pain inflicted by me so she can continue it with me (sorry honey i will get better), a girl so overly caring that she makes me feel like home. she’s the home. her eyebrows squinting so fast whenever something troubles her, and her smile coming up so bright with a hand trying to cover it whenever she laughs. A girl so ambitious that even her insta feed would scream out business ideas and coding hacks. a sweet, heartwarming, friendly girl who just wanna make friends who care, because she always did. A daughter so excellent that always tries to make her parents feel proud, i partner so sweet that always checks in, shows love, care enough for me. A human i didnt fall for just because she was close to me, someone whom i FELT close with, someone with whom i felt easy enough to open up. she’s the person i dreamed off, in fact, i got way more than that. That’s HER…..MY LOVED ONE, MY PRECIOUS, THE TREASURE I WILL CHERISH FOREVER.
+            </div>
+            <div class="btn-container">
+                <button class="btn btn-back" onclick="nav(1)">← Back</button>
+                <button class="btn" onclick="nav(3)">Our Memories →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: THE GALLERY -->
+    <section id="step-3" style="transform: translateX(100%);">
+        <div class="card">
+            <h2>Our Sweet 19 📸</h2>
+            <p style="margin-bottom: 20px;">Every photo is a bite of our happiness.</p>
+            <div class="gallery-grid" id="galleryGrid"></div>
+            <div class="btn-container">
+                <button class="btn btn-back" onclick="nav(2)">← Back</button>
+                <button class="btn" onclick="nav(4)">Fun Quiz →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: THE QUIZ -->
+    <section id="step-4" style="transform: translateX(100%);">
+        <div class="card">
+            <h2>The Sweetness Test ✨</h2>
+            <p id="quiz-q" style="font-size: 1.6rem; margin-bottom: 30px;">Who is the most beautiful person in my world?</p>
+            <div id="quiz-options">
+                <button class="btn" onclick="answer(true)">It's Me! 🍓</button>
+                <button class="btn btn-back" style="margin-left:15px;" onclick="answer(false)">A Chocolate Bar</button>
+            </div>
+           
+            <div class="btn-container">
+                <button class="btn btn-back" onclick="nav(3)">← Back to Gallery</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: PROPOSAL -->
+    <section id="step-5" style="transform: translateX(100%);">
+        <div class="card" style="min-height: 500px;">
+            <h1 style="font-family: 'Pacifico', cursive; font-size: 4.5rem;">Will You Be Mine kiki?</h1>
+            <p style="font-size: 1.5rem;">You are my forever flavor. ❤️</p>
+            <div style="margin-top: 80px; height: 180px; position: relative; width: 100%;">
+                <button class="btn" id="yes-btn" style="font-size: 2rem; padding: 20px 60px;" onclick="celebrate()">YES! ❤️</button>
+                <button class="btn btn-back" id="no-btn" onmouseover="dodge()">No</button>
+            </div>
+            <div class="btn-container" id="final-nav">
+                <button class="btn btn-back" onclick="nav(4)">← Back</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        const photos = [
+    { url: "images/pic1.jpg", note: "A sweet and warm note from you, honestly stuti, never felt so loved.🍫(click on the pic with right click and click on open on another tab hehe)" },
+    { url: "images/pic2.jpg", note: "goshh this pic has my heart already my girl, guess you always were mine." },
+    { url: "images/pic3.jpg", note: "Ohh my, our first pic joined together, hehe, it felt like a chocolate dream with you honey." },
+    { url: "images/pic4.jpg", note: "The photo that made me go like ahhhh is she for real?? she's real damnn!!." },
+    { url: "images/pic5.jpg", note: "OUCHH!! that hurt me baby, but i caressed it for you hehe, dont be dumbo like this again okey??." },
+    { url: "images/pic6.jpg", note: "This mirror selfie always took me back jaanu, always made me remember the very basement that felt like a sweet heaven with you." },
+    { url: "images/pic7.jpg", note: "Aww!! my sleepyhead princess, btw i remember very well what made you so tired that you fell nini like this, uhm uhm hehe." },
+    { url: "images/pic8.jpg", note: "Goshh you looked so gorgeous in this pic stuti ji." },
+    { url: "images/pic9.jpg", note: "having love sandwiches with my FAVOURITE SNACK!!." },
+    { url: "images/pic10.jpg", note: "Aww!! my little dumbo rabbit." },
+    { url: "images/pic11.jpg", note: "do they call this love?? because stuti, never saw someone looking at me like this, im so honest rn." },
+    { url: "images/pic12.jpg", note: "Wink at me like this and watch me fall over infinite times for you in a second(fall over in real as well hahahaha!!!)." },
+    { url: "images/pic13.jpg", note: "myy goshhh!!! why youve to look so beautiful that i have to stop doing everything and look at you huh?? i genuinely did when i saw these pics." },
+    { url: "images/pic14.jpg", note: "Your BEST pic ever my janu, ever, look at the wind appreciating your beauty, the gentleness your eyes contain uhhh." },
+    { url: "images/pic15.jpg", note: "My eyes, only on you honey." },
+    { url: "images/pic16.jpg", note: "ahhhh i would never stop doing these stuff with you bunnyy!" },
+    { url: "images/pic17.jpg", note: "hahahhaa i know im gonna get scolded for this but youre looking soo kawaiiii here honeyyy(gonna tease you like this always beautiful!!)." },
+    { url: "images/pic18.jpg", note: "hey love, i will always hold your hand okey?? no matter how hard things get, i will always my love." },
+    { url: "images/pic19.jpg", note: "always gonna make you smile like this stuti, FOREVER, YOURE MY DREAMY KIKI HEHE. ✨" }
+];
+
+        function begin() {
+            document.getElementById('start-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('start-screen').style.display = 'none';
+                document.getElementById('bg-music').play();
+                document.getElementById('puppy-wrapper').style.display = 'block';
+            }, 500);
+        }
+
+        function nav(step) {
+            for(let i=1; i<=5; i++) {
+                const el = document.getElementById('step-' + i);
+                if (i < step) el.style.transform = 'translateX(-100%)';
+                else if (i === step) el.style.transform = 'translateX(0)';
+                else el.style.transform = 'translateX(100%)';
+            }
+        }
+
+        const grid = document.getElementById('galleryGrid');
+        photos.forEach(p => {
+            grid.innerHTML += `
+                <div class="photo-item">
+                    <img src="${p.url}" alt="Memory">
+                    <div class="photo-note">${p.note}</div>
+                </div>`;
+        });
+
+        function puppyTalk() {
+            const b = document.getElementById('puppy-bubble');
+            const msgs = ["You're so pretty! ✨", "Is it time for cake? 🍫", "I love you too! 🐾", "Click the buttons to see more!"];
+            b.innerText = msgs[Math.floor(Math.random()*msgs.length)];
+            b.style.display = 'block';
+            setTimeout(() => b.style.display = 'none', 3500);
+        }
+
+        function setPuppyEmotion(emo) {
+            const img = document.getElementById('puppy-img');
+            const b = document.getElementById('puppy-bubble');
+            b.style.display = 'block';
+            if(emo === 'happy') {
+                img.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHY5eW5xN3RrZ3R5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/vVzH2FxCoJLcBcE87I/giphy.gif";
+                b.innerText = "YAY! 💖";
+            } else {
+                img.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExejA3bmFmaDV4amI1Znh3d3Z4eHh4eHh4eHh4eHh4eHh4eHh4eHh4ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/H66ae2E6jSMeD2g7e9/giphy.gif";
+                b.innerText = "Wait... no... 🥺";
+            }
+        }
+
+        function answer(correct) {
+            if(correct) {
+                setPuppyEmotion('happy');
+                document.getElementById('quiz-q').innerText = "Correct! You're the one! ❤️";
+                document.getElementById('quiz-options').innerHTML = `<button class="btn" onclick="nav(5)">The Big Surprise →</button>`;
+            } else {
+                setPuppyEmotion('sad');
+                alert("Incorrect! You are the most beautiful person in the whole universe!");
+            }
+        }
+
+        function dodge() {
+            setPuppyEmotion('sad');
+            const btn = document.getElementById('no-btn');
+            // Dodge within the proposal container
+            const x = Math.random() * (window.innerWidth - 200);
+            const y = Math.random() * (window.innerHeight - 200);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function celebrate() {
+            setPuppyEmotion('happy');
+            const end = Date.now() + 5000;
+            const colors = ['#d41430', '#ff85a1', '#ffffff', '#3d251e'];
+
+            (function frame() {
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: colors });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: colors });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+
+            document.querySelector('#step-5 h1').innerText = "I LOVE YOU FOREVER! ❤️";
+            document.getElementById('no-btn').style.display = 'none';
+            document.getElementById('final-nav').style.display = 'none';
+        }
+
+        setInterval(() => {
+            const e = document.createElement('div');
+            e.classList.add('falling');
+            e.innerText = ['🍓','🍫','💖','🧁','✨'][Math.floor(Math.random()*5)];
+            e.style.left = Math.random() * 100 + "vw";
+            e.style.fontSize = Math.random() * 20 + 20 + "px";
+            e.style.animationDuration = Math.random() * 3 + 2 + "s";
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 5000);
+        }, 500);
+    </script>
+</body>
+</html>
